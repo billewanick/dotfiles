@@ -111,10 +111,6 @@ in
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "ctrl:swapcaps";
-
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -206,6 +202,11 @@ in
 
   services.xserver = {
     enable = true;
+
+    # Configure keymap in X11
+    layout = "us";
+    xkbOptions = "ctrl:swapcaps";
+
     libinput.enable = true;
     synaptics.enable = false;
 
@@ -251,6 +252,7 @@ in
       };
 
     };
+
     displayManager = {
 
       defaultSession = "xfce+xmonad";
@@ -259,6 +261,7 @@ in
       autoLogin.user = "bill";
 
     };
+
   };
 
   # TODO: Move nano to own file
@@ -382,8 +385,6 @@ in
       '';
     syntaxHighlight = true;
   };
-
-  programs.sway.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
