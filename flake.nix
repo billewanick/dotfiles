@@ -11,10 +11,8 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +21,9 @@
 
   outputs = { self, flake-utils, nixos-hardware, home-manager, nixpkgs, nur, agenix, ... }:
     let
-      overlays = [ nur.overlay ];
+      overlays = [
+        nur.overlay
+      ];
     in
     {
       nixosConfigurations.bill-thinkpad = nixpkgs.lib.nixosSystem {
@@ -31,10 +31,22 @@
 
         modules = [
 
-          {
+          ({ pkgs, config, ... }: {
+            # Flake related nix-pkgs configs
             nixpkgs.overlays = overlays;
-            nixpkgs.config.allowUnfree = true;
-          }
+
+            nixpkgs.config.allowUnfree = false;
+
+            nix.package = pkgs.nixFlakes;
+            nix.extraOptions = ''
+              # https://github.com/nix-community/nix-direnv#home-manager
+              keep-outputs = true
+              keep-derivations = true
+
+              # Enable the nix 2.0 CLI and flakes support feature-flags
+              experimental-features = nix-command flakes
+            '';
+          })
 
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
 
