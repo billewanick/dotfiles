@@ -204,6 +204,63 @@ in
     hasklig
   ];
 
+  services.xserver = {
+    enable = true;
+    libinput.enable = true;
+    synaptics.enable = false;
+
+    desktopManager = {
+      xterm.enable = false;
+
+      xfce = {
+        enable = true;
+        noDesktop = false;
+        enableXfwm = false;
+      };
+
+      enlightenment.enable = true;
+      cinnamon.enable = true;
+      mate.enable = true;
+      plasma5.enable = true;
+
+    };
+
+    windowManager = {
+
+      xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        extraPackages = haskellPackages: [
+          haskellPackages.xmonad
+          haskellPackages.xmonad-contrib
+          haskellPackages.xmonad-extras
+        ];
+        config = ''
+          import XMonad
+          import XMonad.Config.Xfce
+          main = xmonad xfceConfig
+                { terminal = "alacritty"
+                , modMask = mod4Mask -- optional: use Win key instead of Alt as MODi key
+                }
+        '';
+      };
+
+      i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+      };
+
+    };
+    displayManager = {
+
+      defaultSession = "xfce+xmonad";
+      sddm.enable = true;
+      autoLogin.enable = false;
+      autoLogin.user = "bill";
+
+    };
+  };
+
   # TODO: Move nano to own file
   programs.nano = {
     nanorc =
