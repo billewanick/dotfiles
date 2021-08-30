@@ -31,7 +31,7 @@
 
         modules = [
 
-          ({ pkgs, config, ... }: {
+          ({ pkgs, ... }: {
             # Flake related nix-pkgs configs
             nixpkgs.overlays = overlays;
 
@@ -46,6 +46,9 @@
               # Enable the nix 2.0 CLI and flakes support feature-flags
               experimental-features = nix-command flakes
             '';
+
+            home-manager.useGlobalPkgs = true;
+
           })
 
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
