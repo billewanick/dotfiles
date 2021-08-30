@@ -1,0 +1,6 @@
+{
+    "nixEnvSelector.nixFile": "${workspaceRoot}/flake.nix",
+    "cSpell.words": [
+        "pijul"
+    ]
+}
