@@ -3,6 +3,71 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+let
+  # TODO: Move vscode to own file
+  extensions = (with pkgs.vscode-extensions; [
+    # bbenoist.Nix
+    formulahendry.code-runner
+    jnoortheen.nix-ide
+    yzhang.markdown-all-in-one
+    davidanson.vscode-markdownlint
+    zhuangtongfa.material-theme
+    dracula-theme.theme-dracula
+  ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    # TODO: Add all these to nixpkgs and/or update them
+    {
+      name = "Kotlin";
+      publisher = "mathiasfrohlich";
+      version = "1.7.1";
+      sha256 = "32e0255fa71d60c2d8457dac2e76b15b374d3dc6781b415d7f4e1f9a7cd0287e";
+    }
+    {
+      name = "kotlin-formatter";
+      publisher = "esafirm";
+      version = "0.0.6";
+      sha256 = "1fd8a3d4f6d2cb5bbb9d73c9fc25b56e40cfd599f378feb12cce8eec23688703";
+    }
+    {
+      name = "Nix";
+      publisher = "bbenoist";
+      version = "1.0.1";
+      sha256 =
+        "ab0c6a386b9b9507953f6aab2c5f789dd5ff05ef6864e9fe64c0855f5cb2a07d";
+    }
+    {
+      name = "nix-env-selector";
+      publisher = "arrterian";
+      version = "0.1.7";
+      sha256 =
+        "0e76885c9dbb6dca4eac8a75866ec372b948cc64a3a3845327d7c3ef6ba42a57";
+    }
+    {
+      name = "haskell";
+      publisher = "haskell";
+      version = "1.6.0";
+      sha256 =
+        "3c3ab17d2ece9986edef5b18685852e627bb42daad7b333d4b305b7a2c3fc805";
+    }
+    {
+      name = "vscode-hsx";
+      publisher = "s0kil";
+      version = "0.3.1";
+      sha256 =
+        "2b62fd1ab15b5eefc0c5d813a00b9a5bd3d746e520531f6b1ddeccaa2985513f";
+    }
+    {
+      name = "language-haskell";
+      publisher = "justusadam";
+      version = "3.4.0";
+      sha256 = "fe989d59bc93fa1807ec6b2554060ad6ee51266312bccaa3ea72aafe65a96729";
+    }
+  ];
+  vscodium-with-extensions = pkgs.vscode-with-extensions.override {
+    vscode = pkgs.vscodium;
+    # vscode = pkgs.vscode;
+    vscodeExtensions = extensions;
+  };
+in
 {
   imports =
     [
@@ -92,6 +157,9 @@
     xfce.thunar
     xfce.xfce4-panel
 
+    # Development
+    vscodium-with-extensions
+
     #   Shells
     zsh-nix-shell
     zsh-powerlevel10k
@@ -136,6 +204,7 @@
     hasklig
   ];
 
+  # TODO: Move nano to own file
   programs.nano = {
     nanorc =
       ''
