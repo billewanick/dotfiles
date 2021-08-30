@@ -257,7 +257,7 @@ in
 
       defaultSession = "xfce+xmonad";
       sddm.enable = true;
-      autoLogin.enable = false;
+      autoLogin.enable = true;
       autoLogin.user = "bill";
 
     };
