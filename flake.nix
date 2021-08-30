@@ -16,9 +16,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
-  outputs = { self, flake-utils, nixos-hardware, home-manager, nixpkgs, nur, ... }:
+  outputs = { self, flake-utils, nixos-hardware, home-manager, nixpkgs, nur, agenix, ... }:
     let
       overlays = [ nur.overlay ];
     in
@@ -43,6 +46,8 @@
             home-manager.useUserPackages = true;
             home-manager.users.bill = import ./home.nix;
           }
+
+          agenix.nixosModules.age
 
         ];
 
