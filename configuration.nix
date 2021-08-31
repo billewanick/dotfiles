@@ -145,9 +145,7 @@ in
     tealdeer
 
     # XMonad-related
-    xmobar
-    stalonetray
-    birdtray
+    taffybar
     volumeicon
     dmenu
     xfce.thunar
