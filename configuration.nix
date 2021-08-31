@@ -123,35 +123,35 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    nano
     htop
+    nano
+    wget
 
     # Source Contorl Management
-    git
     fossil
+    git
     pijul
 
     # Databases
-    sqlite
     postgresql
+    sqlite
 
     # Utility
-    xclip
-    home-manager
+    acpi
     alacritty
     direnv
+    home-manager
     nix-direnv
     tealdeer
-    acpi
+    xclip
 
     # Communication
     element-desktop
 
     # XMonad-related
+    dmenu
     taffybar
     volumeicon
-    dmenu
     xfce.thunar
     xfce.xfce4-panel
 
@@ -173,16 +173,16 @@ in
     ghcid
 
     #   Purescript
+    nodePackages.pscid
     purescript
     spago
-    nodePackages.pscid
 
     #   Misc Langsnixpkgs
-    red
-    idris2
-    racket
     chez
+    idris2
     owl-lisp
+    racket
+    red
     zig
   ];
 
