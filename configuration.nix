@@ -143,6 +143,10 @@ in
     direnv
     nix-direnv
     tealdeer
+    acpi
+
+    # Communication
+    element-desktop
 
     # XMonad-related
     taffybar
