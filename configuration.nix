@@ -255,7 +255,7 @@ in
 
     displayManager = {
 
-      defaultSession = "xfce+xmonad";
+      defaultSession = "none+xmonad";
       sddm.enable = true;
       autoLogin.enable = true;
       autoLogin.user = "bill";

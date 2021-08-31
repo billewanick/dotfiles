@@ -210,7 +210,6 @@
         "\n        map <C-i> zoom in\n        map <C-o> zoom out\n      ";
     };
 
-    # home.file.".p10k.zsh".text = pk10zshFile;
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -308,4 +307,14 @@
       '';
     };
   };
+
+  # home.file.".ssh/id_rsa" = {
+  #   text = builtins.readFile ./secrets/id_rsa;
+  #   onChange = "sudo chmod 700 ~/.ssh/id_rsa";
+  # };
+  # home.file.".ssh/id_rsa.pub" = {
+  #   text = builtins.readFile ./keys/id_rsa.pub;
+  #   onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
+  # };
+
 }
