@@ -127,13 +127,13 @@
         "github.com" = {
           hostname = "github.com";
           user = "git";
-          identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_ed25519" ];
+          identityFile = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
           identitiesOnly = true;
         };
         "gitlab.com" = {
           hostname = "gitlab.com";
           user = "git";
-          identityFile = [ "${builtins.getEnv "HOME"}/.ssh/id_gitlab" ];
+          identityFile = [ "${config.home.homeDirectory}/.ssh/id_gitlab" ];
           identitiesOnly = true;
         };
       };
@@ -242,7 +242,16 @@
         # Curling APIs
         weather = "curl wttr.in/Ottawa";
 
+        # Disabling laptop trackpad
+        # https://askubuntu.com/questions/67718/how-do-i-disable-a-touchpad-using-the-command-line
+        disableTrackpad = "xinput set-prop $(xinput list --id-only 'Synaptics TM3288-011') 'Device Enabled' 0";
+        enableTrackpad = "xinput set-prop $(xinput list --id-only 'Synaptics TM3288-011') 'Device Enabled' 1";
+
+        battery = "acpi";
+
         # Laptop Brightness
+        brightness = "xrandr --output eDP-1 --brightness ";
+        # brightnessX = brightness ++ "0.2";
         brightnessDim = "xrandr --output eDP1 --brightness 0.1";
         brightnessFull = "xrandr --output eDP1 --brightness 1.0";
         brightnessMid = "xrandr --output eDP1 --brightness 0.5";
@@ -304,6 +313,8 @@
         # export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
         # export LIBGL_ALWAYS_INDIRECT=1
         # sudo /etc/init.d/dbus start &> /dev/null
+
+        cd /workspace
       '';
     };
   };
@@ -315,6 +326,11 @@
   # home.file.".ssh/id_rsa.pub" = {
   #   text = builtins.readFile ./keys/id_rsa.pub;
   #   onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
+  # };
+  # home.sessionVariables = theme // {
+  #   BROWSER = "brave";
+  #   EDITOR = "vim";
+  #   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
   # };
 
 }
