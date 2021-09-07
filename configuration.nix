@@ -16,6 +16,13 @@ let
   ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     # TODO: Add all these to nixpkgs and/or update them
     {
+      name = "vscode-remote-extensionpack";
+      publisher = "ms-vscode-remote";
+      version = "0.21.0";
+      sha256 = "sha256-T/g9y2bIGtreAQ883ULfHcIivFG4HMQrx2vaPQmCiJI=";
+      # sha256 = "4ff83dcb66c81adade010f3cdd42df1dc222bc51b81cc42bc76bda3d09828892";
+    }
+    {
       name = "Kotlin";
       publisher = "mathiasfrohlich";
       version = "1.7.1";
@@ -139,6 +146,8 @@ in
     # Utility
     acpi
     alacritty
+    aspell
+    aspellDicts.en
     direnv
     home-manager
     nix-direnv
@@ -184,6 +193,9 @@ in
     racket
     red
     zig
+
+    # https://discourse.nixos.org/t/debugging-broken-builds/3138/4
+    cntr
   ];
 
   environment.pathsToLink = [
@@ -201,6 +213,8 @@ in
     ibm-plex
     hasklig
   ];
+
+  virtualisation.docker.enable = true;
 
   services.xserver = {
     enable = true;
@@ -258,10 +272,16 @@ in
     displayManager = {
 
       defaultSession = "none+xmonad";
-      sddm.enable = true;
+      # sddm.enable = true;
       autoLogin.enable = true;
       autoLogin.user = "bill";
 
+
+      lightdm = {
+        enable = true;
+        background = "./background.jpg";
+        greeters.tiny.enable = true;
+      };
     };
 
   };
@@ -403,6 +423,7 @@ in
       extraGroups = [
         "wheel" # Enable ‘sudo’ for the user.
         "networkmanager"
+        "docker"
       ];
       hashedPassword = "$6$v410qNk9xVt/PGXW$BSOlqT.HFFk0BwhTgc20qvXdX6Y0fVeiCmse/KdMFMT7h.JGZveS9E31xfTpnPCTifzntwkg/CzRaXY9YlNtV0";
       # home = "/workspace";
