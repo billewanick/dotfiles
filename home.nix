@@ -24,6 +24,13 @@
     zsh-powerlevel10k
 
     hasklig
+
+    protonvpn-cli
+    protonvpn-gui
+
+    nix-update
+
+    libreoffice
   ];
 
   fonts.fontconfig.enable = true;
@@ -152,7 +159,7 @@
       package = pkgs.vscodium;
       # package = pkgs.vscode;
       extensions = [
-        # pkgs.vscode-extensions.bbenoist.Nix
+        pkgs.vscode-extensions.bbenoist.nix
         pkgs.vscode-extensions.jnoortheen.nix-ide
         pkgs.vscode-extensions.yzhang.markdown-all-in-one
         pkgs.vscode-extensions.davidanson.vscode-markdownlint
@@ -163,13 +170,6 @@
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         ########################################33
         # TODO: Add all these to nixpkgs and/or update them
-        {
-          name = "Nix";
-          publisher = "bbenoist";
-          version = "1.0.1";
-          sha256 =
-            "ab0c6a386b9b9507953f6aab2c5f789dd5ff05ef6864e9fe64c0855f5cb2a07d";
-        }
         {
           name = "nix-env-selector";
           publisher = "arrterian";
@@ -206,8 +206,10 @@
 
     zathura = {
       enable = true;
-      extraConfig =
-        "\n        map <C-i> zoom in\n        map <C-o> zoom out\n      ";
+      extraConfig = ''
+        map <C-i> zoom in
+        map <C-o> zoom out
+      '';
     };
 
     zsh = {
