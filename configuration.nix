@@ -126,6 +126,10 @@ in
   networking.interfaces.wlp2s0.useDHCP = true;
 
   networking.hostName = "bill-thinkpad";
+  networking.extraHosts = ''
+    # 0.0.0.0 twitter.com
+    # 0.0.0.0 mobile.twitter.com
+  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -156,6 +160,7 @@ in
 
     # Communication
     element-desktop
+    signal-desktop
 
     # XMonad-related
     dmenu
@@ -176,6 +181,7 @@ in
     nixpkgs-fmt
     nixpkgs-lint
     nixpkgs-review
+    editorconfig-checker
 
     #   Glasgow Haskell Compiler
     ghc
@@ -186,7 +192,7 @@ in
     purescript
     spago
 
-    #   Misc Langsnixpkgs
+    #   Misc Langs
     chez
     idris2
     owl-lisp
@@ -196,6 +202,10 @@ in
 
     # https://discourse.nixos.org/t/debugging-broken-builds/3138/4
     cntr
+
+    (pkgs.writeShellScriptBin "nixFlakes" ''
+      exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
+    '')
   ];
 
   environment.pathsToLink = [
