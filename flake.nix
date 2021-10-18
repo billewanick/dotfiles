@@ -4,6 +4,9 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "/workspace/nixpkgs";
+
+    # nix.url = "github:NixOS/nix";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -19,10 +22,21 @@
 
   };
 
-  outputs = { self, flake-utils, nixos-hardware, home-manager, nixpkgs, nur, agenix, ... }:
+  outputs =
+    { self
+    , nixpkgs
+      # , nix
+    , flake-utils
+    , nur
+    , nixos-hardware
+    , home-manager
+    , agenix
+    , ...
+    }:
     let
       overlays = [
         nur.overlay
+        # nix.overlay
       ];
     in
     {
