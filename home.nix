@@ -165,25 +165,14 @@
         pkgs.vscode-extensions.davidanson.vscode-markdownlint
         pkgs.vscode-extensions.zhuangtongfa.material-theme
         pkgs.vscode-extensions.dracula-theme.theme-dracula
-        # pkgs.vscode-extensions.haskell.haskell
         pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
+        pkgs.vscode-extensions.arrterian.nix-env-selector
+        pkgs.vscode-extensions.haskell.haskell
+        pkgs.vscode-extensions.justusadam.language-haskell
+
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        ########################################33
+
         # TODO: Add all these to nixpkgs and/or update them
-        {
-          name = "nix-env-selector";
-          publisher = "arrterian";
-          version = "0.1.7";
-          sha256 =
-            "0e76885c9dbb6dca4eac8a75866ec372b948cc64a3a3845327d7c3ef6ba42a57";
-        }
-        {
-          name = "haskell";
-          publisher = "haskell";
-          version = "1.6.0";
-          sha256 =
-            "3c3ab17d2ece9986edef5b18685852e627bb42daad7b333d4b305b7a2c3fc805";
-        }
         {
           name = "vscode-hsx";
           publisher = "s0kil";
