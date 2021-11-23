@@ -49,7 +49,7 @@
             # Flake related nix-pkgs configs
             nixpkgs.overlays = overlays;
 
-            nixpkgs.config.allowUnfree = false;
+            nixpkgs.config.allowUnfree = true;
 
             nix.package = pkgs.nixFlakes;
             nix.extraOptions = ''
