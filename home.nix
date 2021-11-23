@@ -25,12 +25,13 @@
 
     hasklig
 
-    protonvpn-cli
-    protonvpn-gui
-
     nix-update
 
     libreoffice
+
+    zoom-us
+
+    spotify
   ];
 
   fonts.fontconfig.enable = true;
