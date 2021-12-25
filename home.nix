@@ -32,6 +32,13 @@
     zoom-us
 
     spotify
+
+    discord
+
+    # protonvpn-gui
+    protonvpn-cli
+
+    masterpdfeditor4
   ];
 
   fonts.fontconfig.enable = true;
