@@ -210,6 +210,8 @@ in
     displayManager = {
 
       defaultSession = "none+xmonad";
+      # defaultSession = "xfce";
+      # defaultSession = "plasma";
       # sddm.enable = true;
       autoLogin.enable = true;
       autoLogin.user = "bill";
