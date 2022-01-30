@@ -30,7 +30,6 @@ in
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.enable = true;
 
   boot.initrd.luks.devices = {
     luksroot = {
@@ -55,12 +54,17 @@ in
   networking.useDHCP = false;
   networking.interfaces.enp0s31f6.useDHCP = true;
   networking.interfaces.wlp2s0.useDHCP = true;
+  networking.networkmanager.enable = true;
 
   networking.hostName = "bill-thinkpad";
   networking.extraHosts = ''
     # 0.0.0.0 twitter.com
     # 0.0.0.0 mobile.twitter.com
   '';
+  networking.enableIPv6 = false;
+
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.cups-brother-hll2370dw ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -169,14 +173,14 @@ in
       xterm.enable = false;
 
       xfce = {
-        enable = true;
+        enable = false;
         noDesktop = false;
         enableXfwm = false;
       };
 
-      cinnamon.enable = true;
-      mate.enable = true;
-      plasma5.enable = true;
+      cinnamon.enable = false;
+      mate.enable = false;
+      plasma5.enable = false;
 
     };
 
@@ -199,12 +203,6 @@ in
                 }
         '';
       };
-
-      i3 = {
-        enable = true;
-        package = pkgs.i3-gaps;
-      };
-
     };
 
     displayManager = {
@@ -366,7 +364,6 @@ in
         "docker"
       ];
       hashedPassword = "$6$v410qNk9xVt/PGXW$BSOlqT.HFFk0BwhTgc20qvXdX6Y0fVeiCmse/KdMFMT7h.JGZveS9E31xfTpnPCTifzntwkg/CzRaXY9YlNtV0";
-      # home = "/workspace";
       home = "/home/bill";
     };
 
