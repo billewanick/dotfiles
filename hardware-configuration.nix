@@ -5,29 +5,49 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/6928dab3-26d0-40fc-bc23-b8c8e694c0ab";
+    { device = "/dev/disk/by-uuid/8803905e-5816-4253-a08f-47062af68d83";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/E9B1-2A85";
+    { device = "/dev/disk/by-uuid/8796-EF85";
       fsType = "vfat";
     };
 
+  # !!! cryptkey must be done first, and the list seems to be
+  # alphabetically sorted, so take care that cryptroot / cryptswap,
+  # whatever you name them, come after cryptkey.
+  boot.initrd.luks.devices = {
+    cryptkey = {
+      device = "/dev/disk/by-uuid/1893316b-b2da-4d1f-95cf-c28eeb040c5c";
+    };
+
+    cryptroot = {
+      device = "/dev/disk/by-uuid/e1b36ff6-b49f-496c-81c3-4740f0bebfa8";
+      keyFile = "/dev/mapper/cryptkey";
+    };
+
+    cryptswap = {
+      device = "/dev/disk/by-uuid/387ecacc-aa56-43db-b909-d8e0e61cb84a";
+      keyFile = "/dev/mapper/cryptkey";
+    };
+  };
+
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/d52ad23d-d8d9-4a09-927a-eed8de10a203"; }];
+    [ { device = "/dev/disk/by-uuid/3530d60b-f3c4-45e9-b658-3547a21ea670"; }
+    ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # high-resolution display
+  hardware.video.hidpi.enable = lib.mkDefault true;
 }

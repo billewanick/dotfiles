@@ -3,9 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-let
 
-in
 {
   imports =
     [
@@ -13,31 +11,18 @@ in
       ./hardware-configuration.nix
     ];
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "nodev"; # or "nodev" for efi only
-    efiSupport = true;
-    enableCryptodisk = true;
-    fontSize = 24;
-    configurationLimit = 20;
-
-    # Grub menu is painted really slowly on HiDPI, so we lower the
-    # resolution. Unfortunately, scaling to 1280x720 (keeping aspect
-    # ratio) doesn't seem to work, so we just pick another low one.
-    gfxmodeEfi = "1280x720";
-  };
-
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  time.hardwareClockInLocalTime = true;
 
-  boot.initrd.luks.devices = {
-    luksroot = {
-      device = "/dev/disk/by-uuid/b8ebfccf-85d7-46df-b97c-59008beb151e";
-      preLVM = true;
-      allowDiscards = true;
-    };
-  };
+  # nix = {
+  #   package = pkgs.nixUnstable;
+  #   extraOptions = ''
+  #     experimental-features = nix-command flakes
+  #   '';
+  # };
 
   # Supposedly better for the SSD.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
@@ -52,19 +37,141 @@ in
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp0s31f6.useDHCP = true;
-  networking.interfaces.wlp2s0.useDHCP = true;
+  networking.interfaces.enp60s0.useDHCP = true;
+  networking.interfaces.wlp61s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
-  networking.hostName = "bill-thinkpad";
+  networking.hostName = "bill-alienware";
   networking.extraHosts = ''
     # 0.0.0.0 twitter.com
     # 0.0.0.0 mobile.twitter.com
   '';
   networking.enableIPv6 = false;
 
+  # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.cups-brother-hll2370dw ];
+  services.printing.drivers = [ pkgs.cups-brother-hll2350dw ];
+
+  # Enable sound.
+  sound.enable = true;
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio.enable = true;
+
+    environment.pathsToLink = [
+    "/share/nix-direnv"
+    "/share/zsh"
+  ];
+
+  fonts.fonts = with pkgs; [
+    ibm-plex
+    hasklig
+  ];
+
+  virtualisation.docker.enable = true;
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+  services.xserver.xkbOptions = "ctrl:swapcaps";
+
+  # Enable the Plasma 5 Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  services.xserver = {
+    # enable = true;
+
+    # # Configure keymap in X11
+    # layout = "us";
+    # xkbOptions = "ctrl:swapcaps";
+
+    # libinput.enable = true;
+    # synaptics.enable = false;
+
+    # desktopManager = {
+    #   xterm.enable = false;
+
+    #   xfce = {
+    #     enable = true;
+    #     noDesktop = false;
+    #     enableXfwm = false;
+    #   };
+
+    #   cinnamon.enable = false;
+    #   mate.enable = false;
+    #   plasma5.enable = false;
+
+    # };
+
+    # windowManager = {
+
+    #   xmonad = {
+    #     enable = true;
+    #     enableContribAndExtras = true;
+    #     extraPackages = haskellPackages: [
+    #       haskellPackages.xmonad
+    #       haskellPackages.xmonad-contrib
+    #       haskellPackages.xmonad-extras
+    #     ];
+    #     config = ''
+    #       import XMonad
+    #       import XMonad.Config.Xfce
+    #       main = xmonad xfceConfig
+    #             { terminal = "alacritty"
+    #             , modMask = mod4Mask -- optional: use Win key instead of Alt as MODi key
+    #             }
+    #     '';
+    #   };
+    # };
+
+    # displayManager = {
+
+    #   defaultSession = "none+xmonad";
+    #   # defaultSession = "xfce";
+    #   # defaultSession = "plasma";
+    #   # sddm.enable = true;
+    #   autoLogin.enable = true;
+    #   autoLogin.user = "bill";
+
+
+    #   lightdm = {
+    #     enable = true;
+    #     background = "./background.jpg";
+    #     greeters.tiny.enable = true;
+    #   };
+    # };
+
+  };
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = false;
+  users.groups = {
+    hackers = {
+      gid = 616;
+      members = [ "bill" ];
+    };
+  };
+  users.users = {
+    bill = {
+      isNormalUser = true;
+      shell = pkgs.zsh;
+      extraGroups = [
+        "wheel" # Enable ‘sudo’ for the user.
+        "networkmanager"
+        "docker"
+      ];
+      hashedPassword = "$6$v410qNk9xVt/PGXW$BSOlqT.HFFk0BwhTgc20qvXdX6Y0fVeiCmse/KdMFMT7h.JGZveS9E31xfTpnPCTifzntwkg/CzRaXY9YlNtV0";
+      home = "/home/bill";
+    };
+
+    alice = {
+      isNormalUser = true;
+      shell = pkgs.zsh;
+      extraGroups = [
+        "networkmanager"
+      ];
+      home = "/alice";
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -92,10 +199,18 @@ in
     nix-direnv
     tealdeer
     xclip
+    unzip
+    i3lock
+    photoqt
 
     # Communication
     element-desktop
     signal-desktop
+    tor-browser-bundle-bin
+
+    # Music
+    amarok
+    gpodder
 
     # XMonad-related
     dmenu
@@ -139,90 +254,18 @@ in
     (pkgs.writeShellScriptBin "nixFlakes" ''
       exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
     '')
+
+    # xfce.xfce4-pulseaudio-plugin
   ];
 
-  environment.pathsToLink = [
-    "/share/nix-direnv"
-    "/share/zsh"
-  ];
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "21.11"; # Did you read the comment?
 
-  console = {
-    font = "Hasklig16";
-    # font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
-
-  fonts.fonts = with pkgs; [
-    ibm-plex
-    hasklig
-  ];
-
-  virtualisation.docker.enable = true;
-
-  services.xserver = {
-    enable = true;
-
-    # Configure keymap in X11
-    layout = "us";
-    xkbOptions = "ctrl:swapcaps";
-
-    libinput.enable = true;
-    synaptics.enable = false;
-
-    desktopManager = {
-      xterm.enable = false;
-
-      xfce = {
-        enable = false;
-        noDesktop = false;
-        enableXfwm = false;
-      };
-
-      cinnamon.enable = false;
-      mate.enable = false;
-      plasma5.enable = false;
-
-    };
-
-    windowManager = {
-
-      xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        extraPackages = haskellPackages: [
-          haskellPackages.xmonad
-          haskellPackages.xmonad-contrib
-          haskellPackages.xmonad-extras
-        ];
-        config = ''
-          import XMonad
-          import XMonad.Config.Xfce
-          main = xmonad xfceConfig
-                { terminal = "alacritty"
-                , modMask = mod4Mask -- optional: use Win key instead of Alt as MODi key
-                }
-        '';
-      };
-    };
-
-    displayManager = {
-
-      defaultSession = "none+xmonad";
-      # defaultSession = "xfce";
-      # defaultSession = "plasma";
-      # sddm.enable = true;
-      autoLogin.enable = true;
-      autoLogin.user = "bill";
-
-
-      lightdm = {
-        enable = true;
-        background = "./background.jpg";
-        greeters.tiny.enable = true;
-      };
-    };
-
-  };
 
   # TODO: Move nano to own file
   programs.nano = {
@@ -345,43 +388,4 @@ in
       '';
     syntaxHighlight = true;
   };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.mutableUsers = false;
-  users.groups = {
-    hackers = {
-      gid = 616;
-      members = [ "bill" ];
-    };
-  };
-  users.users = {
-    bill = {
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      extraGroups = [
-        "wheel" # Enable ‘sudo’ for the user.
-        "networkmanager"
-        "docker"
-      ];
-      hashedPassword = "$6$v410qNk9xVt/PGXW$BSOlqT.HFFk0BwhTgc20qvXdX6Y0fVeiCmse/KdMFMT7h.JGZveS9E31xfTpnPCTifzntwkg/CzRaXY9YlNtV0";
-      home = "/home/bill";
-    };
-
-    alice = {
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      extraGroups = [
-        "networkmanager"
-      ];
-      home = "/alice";
-    };
-  };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
 }

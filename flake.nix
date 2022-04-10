@@ -3,8 +3,8 @@
 
   inputs = {
 
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "/workspace/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "/workspace/nixpkgs";
 
     # nix.url = "github:NixOS/nix";
 
@@ -40,7 +40,7 @@
       ];
     in
     {
-      nixosConfigurations.bill-thinkpad = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.bill-alienware = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
@@ -62,10 +62,7 @@
             '';
 
             home-manager.useGlobalPkgs = true;
-
           })
-
-          nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
 
           ./configuration.nix
 

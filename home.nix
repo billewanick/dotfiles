@@ -35,8 +35,8 @@
 
     discord
 
-    # protonvpn-gui
-    protonvpn-cli
+    protonvpn-gui
+    # protonvpn-cli
 
     masterpdfeditor4
   ];
@@ -66,7 +66,7 @@
     };
 
     chromium = {
-      enable = true;
+      enable = false;
       extensions = [ "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
     };
 
@@ -123,7 +123,7 @@
     };
 
     keychain = {
-      enable = true;
+      enable = false;
       enableZshIntegration = true;
       keys = [ "id_ed25519" "id_gitlab" ];
     };
@@ -220,7 +220,7 @@
           "sudo"
           "command-not-found"
           "cp"
-          "ssh-agent"
+          # "ssh-agent"
           "node"
           "npm"
           "themes"
