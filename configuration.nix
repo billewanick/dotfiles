@@ -203,6 +203,16 @@
     i3lock
     photoqt
 
+    # Video/image conversion
+    # https://jeremyrouet.medium.com/simple-commands-to-learn-ffmpeg-in-real-use-case-a53f4360efa7
+    ffmpeg
+    libheif
+
+    # connect to iPhone
+    ifuse
+
+    gimp
+
     # Communication
     element-desktop
     signal-desktop
@@ -218,6 +228,9 @@
     volumeicon
     xfce.thunar
     xfce.xfce4-panel
+
+    # kwin tiling
+    libsForQt5.kwin-tiling
 
     # Development
     #   Shells
@@ -236,9 +249,9 @@
     ghcid
 
     #   Purescript
-    nodePackages.pscid
-    purescript
-    spago
+    # nodePackages.pscid
+    # purescript
+    # spago
 
     #   Misc Langs
     chez
