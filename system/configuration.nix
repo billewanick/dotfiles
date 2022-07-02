@@ -7,31 +7,38 @@
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  # Get me proprietary packages
+  nixpkgs.config.allowUnfree = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
-  time.hardwareClockInLocalTime = true;
 
-  # nix = {
-  #   package = pkgs.nixUnstable;
-  #   extraOptions = ''
-  #     experimental-features = nix-command flakes
-  #   '';
-  # };
+  time.hardwareClockInLocalTime = true;
 
   # Supposedly better for the SSD.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
-  # Set your time zone.
   time.timeZone = "America/Toronto";
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      # https://github.com/nix-community/nix-direnv#home-manager
+      keep-outputs = true
+      keep-derivations = true
+
+      # Enable the nix 2.0 CLI and flakes support feature-flags
+      experimental-features = nix-command flakes
+    '';
+  };
+
+  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -39,7 +46,6 @@
   networking.useDHCP = false;
   networking.interfaces.enp60s0.useDHCP = true;
   networking.interfaces.wlp61s0.useDHCP = true;
-  networking.networkmanager.enable = true;
 
   networking.hostName = "bill-alienware";
   networking.extraHosts = ''
@@ -54,10 +60,10 @@
 
   # Enable sound.
   sound.enable = true;
-  nixpkgs.config.pulseaudio = true;
+  # nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = true;
 
-    environment.pathsToLink = [
+  environment.pathsToLink = [
     "/share/nix-direnv"
     "/share/zsh"
   ];
@@ -69,78 +75,28 @@
 
   virtualisation.docker.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.xkbOptions = "ctrl:swapcaps";
 
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
 
+  # Enable the X11 windowing system.
   services.xserver = {
-    # enable = true;
+    enable = true;
+    xkbOptions = "ctrl:swapcaps";
+    videoDrivers = [ "nvidia" ];
 
-    # # Configure keymap in X11
-    # layout = "us";
-    # xkbOptions = "ctrl:swapcaps";
-
-    # libinput.enable = true;
-    # synaptics.enable = false;
-
-    # desktopManager = {
-    #   xterm.enable = false;
-
-    #   xfce = {
-    #     enable = true;
-    #     noDesktop = false;
-    #     enableXfwm = false;
-    #   };
-
-    #   cinnamon.enable = false;
-    #   mate.enable = false;
-    #   plasma5.enable = false;
-
-    # };
-
-    # windowManager = {
-
-    #   xmonad = {
-    #     enable = true;
-    #     enableContribAndExtras = true;
-    #     extraPackages = haskellPackages: [
-    #       haskellPackages.xmonad
-    #       haskellPackages.xmonad-contrib
-    #       haskellPackages.xmonad-extras
-    #     ];
-    #     config = ''
-    #       import XMonad
-    #       import XMonad.Config.Xfce
-    #       main = xmonad xfceConfig
-    #             { terminal = "alacritty"
-    #             , modMask = mod4Mask -- optional: use Win key instead of Alt as MODi key
-    #             }
-    #     '';
-    #   };
-    # };
-
-    # displayManager = {
-
-    #   defaultSession = "none+xmonad";
-    #   # defaultSession = "xfce";
-    #   # defaultSession = "plasma";
-    #   # sddm.enable = true;
-    #   autoLogin.enable = true;
-    #   autoLogin.user = "bill";
-
-
-    #   lightdm = {
-    #     enable = true;
-    #     background = "./background.jpg";
-    #     greeters.tiny.enable = true;
-    #   };
-    # };
-
+    desktopManager.session = [
+      {
+        name = "home-manager";
+        start = ''
+          ${pkgs.runtimeShell} $HOME/.hm-xsession &
+          waitPID=$!
+        '';
+      }
+    ];
   };
+  services.udev.packages = with pkgs; [ solaar ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
@@ -160,7 +116,6 @@
         "docker"
       ];
       hashedPassword = "$6$v410qNk9xVt/PGXW$BSOlqT.HFFk0BwhTgc20qvXdX6Y0fVeiCmse/KdMFMT7h.JGZveS9E31xfTpnPCTifzntwkg/CzRaXY9YlNtV0";
-      home = "/home/bill";
     };
 
     alice = {
@@ -179,15 +134,6 @@
     htop
     nano
     wget
-
-    # Source Contorl Management
-    fossil
-    git
-    pijul
-
-    # Databases
-    postgresql
-    sqlite
 
     # Utility
     acpi
@@ -218,9 +164,6 @@
     signal-desktop
     tor-browser-bundle-bin
 
-    # Music
-    amarok
-    gpodder
 
     # XMonad-related
     dmenu
@@ -236,30 +179,6 @@
     #   Shells
     zsh-nix-shell
     zsh-powerlevel10k
-
-    # Languages
-    #   Nix
-    nixpkgs-fmt
-    nixpkgs-lint
-    nixpkgs-review
-    editorconfig-checker
-
-    #   Glasgow Haskell Compiler
-    ghc
-    ghcid
-
-    #   Purescript
-    # nodePackages.pscid
-    # purescript
-    # spago
-
-    #   Misc Langs
-    chez
-    idris2
-    owl-lisp
-    racket
-    red
-    zig
 
     # https://discourse.nixos.org/t/debugging-broken-builds/3138/4
     cntr
