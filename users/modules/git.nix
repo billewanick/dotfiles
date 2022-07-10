@@ -10,7 +10,6 @@
     userName = "Bill Ewanick";
     userEmail = "bill@ewanick.com";
     package = pkgs.gitAndTools.gitFull;
-    delta.enable = true;
     extraConfig = {
       init = {
         defaultBranch = "main";

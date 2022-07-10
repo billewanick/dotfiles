@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     # Source Contorl Management
     fossil
-    git
     pijul
 
     # Databases

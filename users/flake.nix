@@ -81,6 +81,12 @@
               manual.html.enable = true;
               news.display = "silent";
 
+              imports = common_modules ++ [
+                # ./modules/browser.nix
+                # ./modules/desktop-environment
+                # ./modules/media.nix
+              ];
+
               # Packages that don't fit in the modules that we have
               home.packages = with pkgs; [
                 hasklig
