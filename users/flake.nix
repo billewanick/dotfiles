@@ -67,9 +67,9 @@
           modules = [
             {
               # NOTE: Here we are injecting colorscheme so that it is passed down all the imports
-              # _module.args = {
-              #   colorscheme = (import ./colorschemes/tokyonight.nix);
-              # };
+              _module.args = {
+                colorscheme = (import ./colorschemes/tokyonight.nix);
+              };
 
               nixpkgs.config.allowUnfreePredicate = (unfreePredicate lib);
               nixpkgs.overlays = overlays;
