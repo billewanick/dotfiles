@@ -32,4 +32,11 @@ in
       { id = ublock-origin-id; }
     ];
   };
+
+  programs.qutebrowser = { enable = true; };
+
+  home.packages = with pkgs; [
+    tor-browser-bundle-bin
+  ];
+
 }

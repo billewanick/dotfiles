@@ -6,6 +6,8 @@
     # Music
     amarok
     gpodder
+
+    gimp
   ];
 
 

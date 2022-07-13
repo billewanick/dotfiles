@@ -1,5 +1,12 @@
 { config, pkgs, libs, ... }:
 {
+
+  programs.keychain = {
+    enable = false;
+    enableZshIntegration = true;
+    keys = [ "id_ed25519" "id_gitlab" ];
+  };
+
   programs.ssh = {
     enable = true;
     forwardAgent = true;

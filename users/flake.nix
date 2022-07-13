@@ -33,6 +33,7 @@
       common_modules = [
         ./modules/browser.nix
         ./modules/cli
+        ./modules/communication.nix
         # ./modules/desktop-environment
         ./modules/git.nix
         ./modules/kitty.nix
@@ -94,6 +95,7 @@
                 libreoffice
                 protonvpn-gui
                 # protonvpn-cli
+                audacity
               ];
             }
 
