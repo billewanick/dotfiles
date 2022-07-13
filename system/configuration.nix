@@ -176,6 +176,8 @@
     # '')
 
     # xfce.xfce4-pulseaudio-plugin
+
+    git
   ];
 
   programs.nano = {
