@@ -3,7 +3,7 @@ let
   lib = pkgs.lib;
 
   common_modules = [
-    ./modules/browser.nix
+    ./modules/browsers.nix
     ./modules/cli
     ./modules/communication.nix
     # ./modules/desktop-environment
