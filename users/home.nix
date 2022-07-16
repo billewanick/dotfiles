@@ -52,6 +52,19 @@ in
     libreoffice
     protonvpn-gui
     audacity
+
+    aspell
+    aspellDicts.en
+
+    photoqt
+
+    # Video/image conversion
+    # https://jeremyrouet.medium.com/simple-commands-to-learn-ffmpeg-in-real-use-case-a53f4360efa7
+    ffmpeg
+    libheif
+
+    # connect to iPhone
+    ifuse
   ];
 
   home = {

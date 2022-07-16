@@ -73,9 +73,6 @@
     hasklig
   ];
 
-  # virtualisation.docker.enable = true;
-
-
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
@@ -131,53 +128,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    git
     htop
     nano
     wget
-
-    # Utility
     acpi
-    alacritty
-    aspell
-    aspellDicts.en
-    direnv
     home-manager
-    nix-direnv
-    tealdeer
-    xclip
     unzip
-    i3lock
-    photoqt
 
-    # Video/image conversion
-    # https://jeremyrouet.medium.com/simple-commands-to-learn-ffmpeg-in-real-use-case-a53f4360efa7
-    ffmpeg
-    libheif
-
-    # connect to iPhone
-    ifuse
-
-    # XMonad-related
-    dmenu
-    taffybar
-    volumeicon
-    xfce.thunar
-    xfce.xfce4-panel
-
-    # kwin tiling
-    libsForQt5.kwin-tiling
-
-
-    # https://discourse.nixos.org/t/debugging-broken-builds/3138/4
-    # cntr
-
-    # (pkgs.writeShellScriptBin "nixFlakes" ''
-    #   exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-    # '')
-
-    # xfce.xfce4-pulseaudio-plugin
-
-    git
+    libsForQt5.kwin-tiling # kwin tiling
   ];
 
   programs.nano = {

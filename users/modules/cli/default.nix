@@ -45,6 +45,7 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    enableZshIntegration = true;
     stdlib = ''
 
       '';
@@ -59,6 +60,19 @@
     enable = false;
     enableZshIntegration = true;
     keys = [ "id_ed25519" "id_gitlab" ];
+  };
+
+  programs.tealdear = {
+    enable = true;
+    settings = {
+      display = {
+        compact = false;
+        use_pager = true;
+      };
+      updates = {
+        auto_update = false;
+      };
+    };
   };
 
   programs.zsh = {
