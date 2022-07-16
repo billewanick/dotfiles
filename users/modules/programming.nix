@@ -1,6 +1,7 @@
 { config, pkgs, lib, colorscheme, ... }:
-{
-  home.packages = with pkgs; [
+
+let
+  defaultPackages = with pkgs; [
     # Source Contorl Management
     fossil
     pijul
@@ -15,10 +16,6 @@
     nixpkgs-review
     editorconfig-checker
 
-    # Glasgow Haskell Compiler
-    ghc
-    ghcid
-
     # Purescript
     nodePackages.pscid
     purescript
@@ -32,6 +29,19 @@
     red
     zig
   ];
+
+  haskellPackages = with pkgs.haskellPackages; [
+    # Glasgow Haskell Compiler
+    ghc
+    ghcid
+    hoogle
+    nix-tree
+  ];
+in
+{
+  home.packages =
+    defaultPackages
+    ++ haskellPackages;
 
   programs.vscode = {
     enable = true;

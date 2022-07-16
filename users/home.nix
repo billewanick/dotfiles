@@ -47,16 +47,16 @@ in
 
   # Packages that don't fit in the modules that we have
   home.packages = with pkgs; [
-    hasklig
-    nix-update
-    libreoffice
-    protonvpn-gui
-    audacity
-
     aspell
     aspellDicts.en
 
+    audacity
+    bitwarden-cli
+    hasklig
+    libreoffice
+    nix-update
     photoqt
+    protonvpn-gui
 
     # Video/image conversion
     # https://jeremyrouet.medium.com/simple-commands-to-learn-ffmpeg-in-real-use-case-a53f4360efa7

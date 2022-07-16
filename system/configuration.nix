@@ -128,13 +128,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    acpi
     git
+    home-manager
     htop
     nano
-    wget
-    acpi
-    home-manager
     unzip
+    wget
 
     libsForQt5.kwin-tiling # kwin tiling
   ];

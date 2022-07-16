@@ -62,7 +62,7 @@
     keys = [ "id_ed25519" "id_gitlab" ];
   };
 
-  programs.tealdear = {
+  programs.tealdeer = {
     enable = true;
     settings = {
       display = {

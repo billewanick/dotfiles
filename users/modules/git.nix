@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     git-crypt
     gitAndTools.delta
+    hub
   ];
 
   programs.git = {
@@ -38,6 +39,15 @@
     settings.git_protocol = "ssh";
   };
 
-  programs.gpg.enable = pkgs.stdenv.isLinux;
-  services.gpg-agent.enable = pkgs.stdenv.isLinux;
+  programs.gpg.enable = true;
+  services.gpg-agent.enable = true;
+
+  # home.file.".ssh/id_rsa" = {
+  #   text = builtins.readFile ./secrets/id_rsa;
+  #   onChange = "sudo chmod 700 ~/.ssh/id_rsa";
+  # };
+  # home.file.".ssh/id_rsa.pub" = {
+  #   text = builtins.readFile ./keys/id_rsa.pub;
+  #   onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
+  # };
 }
