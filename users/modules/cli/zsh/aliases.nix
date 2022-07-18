@@ -16,14 +16,15 @@
 
   # Disabling laptop trackpad
   # https://askubuntu.com/questions/67718/how-do-i-disable-a-touchpad-using-the-command-line
-  disableTrackpad = "xinput set-prop $(xinput list --id-only 'Synaptics TM3288-011') 'Device Enabled' 0";
-  enableTrackpad = "xinput set-prop $(xinput list --id-only 'Synaptics TM3288-011') 'Device Enabled' 1";
+  disableTrackpad = "xinput set-prop $(xinput list --id-only 'SynPS/2 Synaptics TouchPad') 'Device Enabled' 0";
+  enableTrackpad = "xinput set-prop $(xinput list --id-only 'SynPS/2 Synaptics TouchPad') 'Device Enabled' 1";
+  disableTrackpad-thinkpad = "xinput set-prop $(xinput list --id-only 'Synaptics TM3288-011') 'Device Enabled' 0";
+  enableTrackpad-thinkpad = "xinput set-prop $(xinput list --id-only 'Synaptics TM3288-011') 'Device Enabled' 1";
 
   battery = "acpi";
 
   # Laptop Brightness
   brightness = "xrandr --output eDP-1 --brightness ";
-  # brightnessX = brightness ++ "0.2";
   brightnessDim = "xrandr --output eDP1 --brightness 0.1";
   brightnessFull = "xrandr --output eDP1 --brightness 1.0";
   brightnessMid = "xrandr --output eDP1 --brightness 0.5";
