@@ -10,7 +10,6 @@
     gimp
   ];
 
-
   programs.zathura = {
     enable = true;
     extraConfig = ''

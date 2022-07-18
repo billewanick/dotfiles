@@ -48,16 +48,20 @@ in
     package = pkgs.vscodium;
     # package = pkgs.vscode;
     extensions = [
-      pkgs.vscode-extensions.bbenoist.nix
-      pkgs.vscode-extensions.jnoortheen.nix-ide
-      pkgs.vscode-extensions.yzhang.markdown-all-in-one
-      pkgs.vscode-extensions.davidanson.vscode-markdownlint
-      pkgs.vscode-extensions.zhuangtongfa.material-theme
-      pkgs.vscode-extensions.dracula-theme.theme-dracula
       pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
-      pkgs.vscode-extensions.arrterian.nix-env-selector
+      pkgs.vscode-extensions.dracula-theme.theme-dracula
+
       pkgs.vscode-extensions.haskell.haskell
       pkgs.vscode-extensions.justusadam.language-haskell
+
+      pkgs.vscode-extensions.yzhang.markdown-all-in-one
+      pkgs.vscode-extensions.davidanson.vscode-markdownlint
+
+      pkgs.vscode-extensions.bbenoist.nix
+      pkgs.vscode-extensions.arrterian.nix-env-selector
+      pkgs.vscode-extensions.jnoortheen.nix-ide
+
+      pkgs.vscode-extensions.zhuangtongfa.material-theme
 
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
 
@@ -68,12 +72,6 @@ in
         version = "0.3.1";
         sha256 =
           "2b62fd1ab15b5eefc0c5d813a00b9a5bd3d746e520531f6b1ddeccaa2985513f";
-      }
-      {
-        name = "language-haskell";
-        publisher = "justusadam";
-        version = "3.4.0";
-        sha256 = "fe989d59bc93fa1807ec6b2554060ad6ee51266312bccaa3ea72aafe65a96729";
       }
     ];
 

@@ -1,6 +1,14 @@
 {
     "nixEnvSelector.nixFile": "${workspaceRoot}/flake.nix",
     "cSpell.words": [
-        "pijul"
+        "Ewanick",
+        "fancytypist",
+        "Newegg",
+        "pijul",
+        "sherubthakur's",
+        "Speedrun",
+        "Threadripper",
+        "XFCE",
+        "xmonad"
     ]
 }

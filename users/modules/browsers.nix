@@ -79,8 +79,7 @@ in
       bitwarden
       facebook-container
       https-everywhere
-      # auto-accepts cookies, use only with privacy-badger & ublock-origin
-      i-dont-care-about-cookies
+      i-dont-care-about-cookies # auto-accepts cookies, use only with privacy-badger & ublock-origin
       link-cleaner
       old-reddit-redirect
       privacy-badger

@@ -94,6 +94,7 @@
         file = "p10k.zsh";
       }
     ];
+
     oh-my-zsh = {
       enable = true;
       plugins = [

@@ -25,7 +25,7 @@ in
 {
   # NOTE: Here we are injecting colorscheme so that it is passed down all the imports
   _module.args = {
-    colorscheme = (import ./colorschemes/tokyonight.nix);
+    colorscheme = (import ./colorschemes/onedark.nix);
   };
 
   nixpkgs.config.allowUnfreePredicate = (unfreePredicate lib);
