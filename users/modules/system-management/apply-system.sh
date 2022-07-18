@@ -1,4 +1,4 @@
 #!/bin/sh
-pushd /workspace/nix-new
+pushd /workspace/dotfiles
 sudo nixos-rebuild switch --flake './system#nixos'
 popd

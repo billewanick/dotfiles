@@ -1,4 +1,4 @@
 #!/bin/sh
-pushd /workspace/nix-new
+pushd /workspace/dotfiles
 sudo nix flake update ./system
 popd

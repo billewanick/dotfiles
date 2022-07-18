@@ -1,4 +1,4 @@
 #!/bin/sh
-pushd /workspace/nix-new
+pushd /workspace/dotfiles
 home-manager switch --flake "./users#nixos"
 popd
