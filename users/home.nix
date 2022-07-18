@@ -3,15 +3,14 @@ let
   lib = pkgs.lib;
 
   common_modules = [
-    ./modules/browsers.nix
     ./modules/cli
+    # ./modules/system-management
+    ./modules/browsers.nix
     ./modules/communication.nix
-    # ./modules/desktop-environment
     ./modules/git.nix
     ./modules/kitty.nix
     ./modules/media.nix
     ./modules/programming.nix
-    # ./modules/system-management
     ./modules/ssh.nix
   ];
 
@@ -39,11 +38,19 @@ in
   manual.html.enable = true;
   news.display = "silent";
 
-  imports = common_modules ++ [
-    # ./modules/browser.nix
-    # ./modules/desktop-environment
-    # ./modules/media.nix
-  ];
+  imports = common_modules;
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome3.adwaita-icon-theme;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome3.adwaita-icon-theme;
+    };
+  };
 
   # Packages that don't fit in the modules that we have
   home.packages = with pkgs; [

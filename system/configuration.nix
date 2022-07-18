@@ -25,7 +25,15 @@
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "America/Toronto";
 
+  # Nix daemon config
   nix = {
+    # Automate garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     package = pkgs.nixFlakes;
     extraOptions = ''
       # https://github.com/nix-community/nix-direnv#home-manager
@@ -35,6 +43,14 @@
       # Enable the nix 2.0 CLI and flakes support feature-flags
       experimental-features = nix-command flakes
     '';
+
+    settings = {
+      # Automate `nix store --optimise`
+      auto-optimise-store = true;
+
+      # Required by Cachix to be used as non-root user
+      trusted-users = [ "root" "bill" ];
+    };
   };
 
   # Enables wireless support via wpa_supplicant.
@@ -54,14 +70,27 @@
   '';
   networking.enableIPv6 = false;
 
+  services = {
+    printing = {
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.cups-brother-hll2350dw ];
+      enable = true;
+      drivers = [ pkgs.cups-brother-hll2350dw ];
+    };
+
+    # SSH daemon.
+    sshd.enable = true;
+  };
 
   # Enable sound.
-  sound.enable = true;
-  # nixpkgs.config.pulseaudio = true;
-  hardware.pulseaudio.enable = true;
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
+  };
+
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+  };
 
   environment.pathsToLink = [
     "/share/nix-direnv"
@@ -103,6 +132,7 @@
       members = [ "bill" ];
     };
   };
+
   users.users = {
     bill = {
       isNormalUser = true;
@@ -139,10 +169,38 @@
     libsForQt5.kwin-tiling # kwin tiling
   ];
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   programs.nano = {
     nanorc = (import ./nano/nanorc);
     syntaxHighlight = true;
   };
+
+  programs.dconf.enable = true;
+
+  # Enable Docker & VirtualBox support.
+  virtualisation = {
+    docker = {
+      enable = true;
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+      };
+    };
+
+    virtualbox.host = {
+      enable = false;
+      enableExtensionPack = false;
+    };
+  };
+
+  users.extraGroups.vboxusers.members = [ "bill" ];
+
+  # Fractal wallpapers
+  # services.fractalart.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
