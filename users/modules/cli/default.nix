@@ -66,7 +66,7 @@
     settings = {
       display = {
         compact = false;
-        use_pager = true;
+        use_pager = false;
       };
       updates = {
         auto_update = false;
