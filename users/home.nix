@@ -4,7 +4,7 @@ let
 
   common_modules = [
     ./modules/cli
-    # ./modules/system-management
+    ./modules/system-management
     ./modules/browsers.nix
     ./modules/communication.nix
     ./modules/git.nix
