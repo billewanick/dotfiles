@@ -8,6 +8,8 @@
     gpodder
 
     gimp
+
+    masterpdfeditor4
   ];
 
   programs.zathura = {

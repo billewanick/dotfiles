@@ -15,7 +15,7 @@ let
   ];
 
   unfreePredicate = lib: pkg: builtins.elem (lib.getName pkg) [
-    "zoom-us"
+    "zoom"
     "slack"
     "discord"
     "unrar"
@@ -28,7 +28,7 @@ in
     colorscheme = (import ./colorschemes/onedark.nix);
   };
 
-  nixpkgs.config.allowUnfreePredicate = (unfreePredicate lib);
+  nixpkgs.config.allowUnfreePredicate = unfreePredicate lib;
   nixpkgs.overlays = overlays;
 
   # Let Home Manager install and manage itself.
