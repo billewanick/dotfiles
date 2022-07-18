@@ -74,6 +74,15 @@ in
     ifuse
   ];
 
+  programs.rofi = {
+    enable = true;
+    terminal = "${pkgs.kitty}/bin/kitty";
+    theme = "Arc-Dark";
+  };
+
+  # Background image
+  home.file.".background-image".source = ../background.jpg;
+
   home = {
     # Home Manager needs a bit of information about you and the
     # paths it should manage.

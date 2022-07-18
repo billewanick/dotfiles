@@ -8,6 +8,8 @@
   imports =
     [
       ./hardware-configuration.nix
+
+      ./wm/xmonad.nix
     ];
 
   # Get me proprietary packages
@@ -72,7 +74,7 @@
 
   services = {
     printing = {
-  # Enable CUPS to print documents.
+      # Enable CUPS to print documents.
       enable = true;
       drivers = [ pkgs.cups-brother-hll2350dw ];
     };
@@ -102,27 +104,12 @@
     hasklig
   ];
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    xkbOptions = "ctrl:swapcaps";
-    videoDrivers = [ "nvidia" ];
-
-    # desktopManager.session = [
-    #   {
-    #     name = "home-manager";
-    #     start = ''
-    #       ${pkgs.runtimeShell} $HOME/.hm-xsession &
-    #       waitPID=$!
-    #     '';
-    #   }
-    # ];
-  };
   services.udev.packages = with pkgs; [ solaar ];
+
+  services.dbus = {
+    enable = true;
+    packages = [ pkgs.dconf ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
@@ -165,8 +152,6 @@
     nano
     unzip
     wget
-
-    libsForQt5.kwin-tiling # kwin tiling
   ];
 
   programs.gnupg.agent = {
