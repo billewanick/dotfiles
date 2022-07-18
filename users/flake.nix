@@ -10,17 +10,12 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    taffybar = {
-      url = "github:sherubthakur/taffybar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, taffybar, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:
     let
       overlays = [
         nur.overlay
-        taffybar.overlay
       ];
 
       system = "x86_64-linux";
