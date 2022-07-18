@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     # CLI tools / Terminal facification
@@ -7,7 +7,6 @@
     unrar
 
     # Moar colors
-    starship
     zsh-syntax-highlighting
 
     # Searching/Movement helpers

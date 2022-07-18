@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   defaultPackages = with pkgs; [
