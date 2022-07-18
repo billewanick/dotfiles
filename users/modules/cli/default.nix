@@ -104,9 +104,7 @@
         # "ssh-agent"
         "node"
         "npm"
-        "themes"
       ];
-      theme = "pygmalion";
     };
 
     initExtra = ''
