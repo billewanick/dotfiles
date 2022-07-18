@@ -88,6 +88,8 @@ in
       unpaywall
     ];
 
+    package = pkgs.firefox-beta-bin;
+
     profiles = {
       default = {
         id = 0;
