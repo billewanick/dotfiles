@@ -82,6 +82,18 @@
     autocd = true;
     shellAliases = (import ./zsh/aliases.nix);
     history.extended = true;
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = lib.cleanSource ./zsh;
+        file = "p10k.zsh";
+      }
+    ];
     oh-my-zsh = {
       enable = true;
       plugins = [
@@ -98,11 +110,6 @@
     };
 
     initExtra = ''
-      # Powerlevel10k
-      # https://github.com/evanjs/nixos_cfg/blob/ee9244012e12d8f3d03453de35a0d6e7f14bb4b8/config/new-modules/zsh.nix#L24
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source ~/.p10k.zsh
-
       # If to always go to home, unless nix-shell stay in folder
       # -z is true if length of string is zero.
       if [ -z $IN_NIX_SHELL ]; then
