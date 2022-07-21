@@ -22,6 +22,7 @@
       };
 
       pull.ff = "only";
+      push.autoSetupRemote = true;
 
       delta = {
         features = "side-by-side line-numbers decorations";
