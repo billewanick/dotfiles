@@ -55,12 +55,6 @@
     enableZshIntegration = true;
   };
 
-  programs.keychain = {
-    enable = false;
-    enableZshIntegration = true;
-    keys = [ "id_ed25519" "id_gitlab" ];
-  };
-
   programs.tealdeer = {
     enable = true;
     settings = {

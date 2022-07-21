@@ -2,9 +2,9 @@
 {
 
   programs.keychain = {
-    enable = false;
+    enable = true;
     enableZshIntegration = true;
-    keys = [ "id_ed25519" "id_gitlab" ];
+    keys = [ "id_ed25519" ];
   };
 
   programs.ssh = {
@@ -20,7 +20,7 @@
       "gitlab.com" = {
         hostname = "gitlab.com";
         user = "git";
-        identityFile = [ "${config.home.homeDirectory}/.ssh/id_gitlab" ];
+        identityFile = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
         identitiesOnly = true;
       };
     };
