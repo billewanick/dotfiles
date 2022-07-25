@@ -96,7 +96,7 @@
         "sudo"
         "command-not-found"
         "cp"
-        # "ssh-agent"
+        "ssh-agent"
         "node"
         "npm"
       ];
