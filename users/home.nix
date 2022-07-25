@@ -21,6 +21,10 @@ let
     "unrar"
     "masterpdfeditor4"
   ];
+
+  extra = ''
+    ${pkgs.xcape}/bin/xcape -e "Hyper_L=Tab;Hyper_R=backslash"
+  '';
 in
 {
   # NOTE: Here we are injecting colorscheme so that it is passed down all the imports
@@ -96,6 +100,12 @@ in
 
   # Background image
   home.file.".background-image".source = ../background.jpg;
+
+  # xsession = {
+  #   enable = true;
+
+  #   initExtra = extra;
+  # };
 
   home = {
     # Home Manager needs a bit of information about you and the
