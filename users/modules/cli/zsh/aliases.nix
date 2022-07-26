@@ -30,14 +30,15 @@
   brightnessMid = "xrandr --output eDP1 --brightness 0.5";
 
   # Git aliases
-  gs = "git status";
-  gc = "git commit -a -m";
-  gd = "git diff";
-  gr = "git reset HEAD .";
-  gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
   gb = "git branch";
+  gc = "git commit -a -m";
   gco = "git checkout -";
+  gd = "git diff";
   gir = "git rebase -i";
+  gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+  gr = "git remote -v";
+  gre = "git reset HEAD .";
+  gs = "git status";
   # git undo, dangerous to repeat!
   # undo = "git reset --soft HEAD^"
 
