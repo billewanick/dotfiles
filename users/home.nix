@@ -76,6 +76,9 @@ in
 
     # connect to iPhone
     ifuse
+
+    # calculator
+    quich
   ];
 
   programs.rofi = {

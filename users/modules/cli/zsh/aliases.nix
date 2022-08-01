@@ -11,6 +11,9 @@
   nano = "nano -EPcl";
   ls = "ls -lha";
 
+  # Terminal calculator
+  calc = "quich -t";
+
   # Curling APIs
   weather = "curl wttr.in/Ottawa";
 
