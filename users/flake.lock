@@ -8,11 +8,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1658924727,
-        "narHash": "sha256-Fhh9FK9CvuCLxG1WkWJPoendDeXKI4gHYTfezo1n2Zg=",
+        "lastModified": 1659484873,
+        "narHash": "sha256-6VoPiGyDdjBHOJ3IpS24lY1lrDiOHeuEefOFI0qz3WE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0e2f7876d2f2ae98a67d89a8bef8c49332aae5af",
+        "rev": "d8d9ff0b2df77defa10375c6665b51f0251c34d6",
         "type": "github"
       },
       "original": {
@@ -23,11 +23,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1658872978,
-        "narHash": "sha256-Qg0lIr3p6dGm4gnvnuKdVTFSWbYCeD2SeKToIHNcvvA=",
-        "ref": "refs/heads/update_vscode",
-        "rev": "91a156d2c3d67b6d06d06f6ac51f6bee177008d9",
-        "revCount": 394251,
+        "lastModified": 1659488450,
+        "narHash": "sha256-LPXL0pHbCE+isDnhIF5njpBnRZvHgJy6wY/03bj9KPU=",
+        "ref": "refs/heads/update_meteor",
+        "rev": "8f0e1f0c7962e35f54b085aa4d51b3ecf3d0b19b",
+        "revCount": 397141,
         "type": "git",
         "url": "file:///workspace/nixpkgs"
       },
@@ -38,11 +38,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1658932052,
-        "narHash": "sha256-qCX8Q0ZhbBqrNcrdOU+cp2x7SkMNPPSbbN6ZySsi4vY=",
+        "lastModified": 1659733116,
+        "narHash": "sha256-AP451Ww07bfP0aiIXVX84R8sQbCHDlBn8WkD19ot4WA=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "08060458b308efaf17d5a21db54ce490dbca980d",
+        "rev": "147444a214d8e7a4aaab0c205d5bd04e987747e8",
         "type": "github"
       },
       "original": {

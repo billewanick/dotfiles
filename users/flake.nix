@@ -34,5 +34,14 @@
           extraSpecialArgs = { inherit overlays; };
         };
       };
+
+      my-container-image = pkgs.dockerTools.buildImage {
+        name = "my-container-image";
+        tag = "latest";
+        contents = [
+          pkgs.hello
+        ];
+        config.Cmd = [ "hello" ];
+      };
     };
 }
